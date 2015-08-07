@@ -1,7 +1,7 @@
 {
   "name": "mongo-message-queue",
-  "version": "0.1.0",
-  "description": "A promise based message queue for Node.js using a mongo backing store.",
+  "version": "0.1.1",
+  "description": "A promise based message queue for Node.js using a mongodb backing store.",
   "main": "index.js",
   "dependencies": {
     "lodash": ">=3.8.0",
