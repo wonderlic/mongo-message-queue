@@ -79,8 +79,8 @@ mQueue.registerWorker('doSomething', function(queueItem) {
           queueItem.nextReceivableTime = new Date(Date.now() + (30 * 1000)); // Retry after 30 seconds...
           return "Retry";
         } else {
-          queueItem.rejectedReason = "Gave up after 5 retries.";
-          return "Rejected"
+          queueItem.rejectionReason = "Gave up after 5 retries.";
+          return "Rejected";
         }
       });
   });
