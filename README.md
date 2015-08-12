@@ -95,6 +95,13 @@ Example:
 mQueue.enqueue('doSomething', { id: 123, status: 'done' });
 ```
 
+You can also enqueue a message to be picked up in the future (instead of being immediately available for pickup) by passing in an optional options object with a future nextReceivableTime as the third parameter.
+
+Example:
+```javascript
+mQueue.enqueue('doSomething', { id: 123, status: 'done' }, { nextReceivableTime: new Date(Date.now() + (30 * 1000)) });
+```
+
 You can also enqueue a message and try to process it immediately with a locally registered worker.  If there is not a worker for the specified type registered locally, it will get picked up and processed later when there is an available worker.
 
 Example:
