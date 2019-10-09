@@ -12,5 +12,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/wonderlic/mongo-message-queue.git"
+  },
+  "engines": {
+    "node": ">=8"
   }
 }
