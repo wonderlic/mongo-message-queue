@@ -4,11 +4,10 @@
   "description": "A promise based message queue for Node.js using a mongodb backing store.",
   "main": "index.js",
   "dependencies": {
-    "lodash": ">=3.8.0",
-    "q": ">=1.2.0"
+    "lodash": ">=3.8.0"
   },
   "peerDependencies": {
-    "mongodb": ">= 2.0.36 < 3"
+    "mongodb": ">= 4.0.0 < 5"
   },
   "repository": {
     "type": "git",
