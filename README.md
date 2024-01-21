@@ -6,7 +6,7 @@
 
 ## Package Dependency Notice
 
-NOTE:  This package makes use of promises (instead of callbacks) when interacting with mongodb which requires mongodb version 2.0.36 or higher.
+NOTE:  This package requires mongodb version 6.x.x or higher.
 
 ## Usage
 
@@ -20,9 +20,9 @@ npm install mongo-message-queue --save
 
 Example:
 ```javascript
-var MessageQueue = require('mongo-message-queue');
+const MessageQueue = require('mongo-message-queue');
 
-var mQueue = new MessageQueue();
+const mQueue = new MessageQueue();
 ```
 
 ### Database Configuration
@@ -31,10 +31,10 @@ Set the .databasePromise property to a function that returns a promise that (eve
 
 Example:
 ```javascript
-var MongoClient = require('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 
-var mongoUri = ...;
-var mongoOptions = ...;
+const mongoUri = ...;
+const mongoOptions = ...;
 
 mQueue.databasePromise = function() {
   // Return a promise to return a mongo database connection here...
@@ -113,7 +113,7 @@ mQueue.enqueueAndProcess('doSomething', { id: 123, status: 'done' });
 
 (The MIT License)
 
-Copyright (c) 2014 Wonderlic, Inc. <SoftwareDevelopment@wonderlic.com>
+Copyright (c) 2014-2023 Wonderlic, Inc. <SoftwareDevelopment@wonderlic.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
