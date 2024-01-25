@@ -54,17 +54,17 @@ The second parameter of the .registerWorker method is used to specify the proces
 
 - Use queueItem.message to get access to the enqueued item.
 - Use queueItem.retryCount to get access to the number of retries that have occurred.
-- This property is not available during the first processing attempt.
+  - This property is not available during the first processing attempt.
 
 The processing method should return a promise (chain) that (eventually) returns a status of "Completed", "Rejected", or "Retry".
 
 - If the returned status is "Rejected"...
-- Optionally set queueItem.rejectionReason to indicate why this should no longer be processed.
-- Optionally set queueItem.releasedReason to indicate why this didn't process this time around.
+  - Optionally set queueItem.rejectionReason to indicate why this should no longer be processed.
+  - Optionally set queueItem.releasedReason to indicate why this didn't process this time around.
 - If the returned status is "Retry"...
-- Optionally set queueItem.releasedReason to indicate why this didn't process this time around.
-- Optionally set queueItem.nextReceivableTime to indicate when you want this to get picked up and re-processed.
-  - If you don't set queueItem.nextReceivableTime this message will be available for re-procesing immediately.
+  - Optionally set queueItem.releasedReason to indicate why this didn't process this time around.
+  - Optionally set queueItem.nextReceivableTime to indicate when you want this to get picked up and re-processed.
+    - If you don't set queueItem.nextReceivableTime this message will be available for re-procesing immediately.
 
 Registering a worker will cause the message queue to immediately start polling for work of the specified type. By default, the message queue looks for new messages at least once every second (configurable by overridding the .pollingInterval property). Polling also occurs immediately following the processing of a previous queue message as long as there is still available work in the queue. Polling will continue to occur until the .stopPolling() method is called.
 
