@@ -1,5 +1,5 @@
-node_modules/*
 .idea/*
-.env
+node_modules/*
+test/*
 .npmrc
 package-lock.json
