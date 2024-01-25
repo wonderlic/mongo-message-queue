@@ -6,7 +6,7 @@
 
 ## Package Dependency Notice
 
-NOTE: This package requires mongodb version 6.x.x or higher.
+NOTE: This package requires mongodb version 4.0.0 or higher.
 
 ## Usage
 
