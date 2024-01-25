@@ -6,7 +6,7 @@
 
 ## Package Dependency Notice
 
-NOTE: This package requires mongodb version 4.0.0 or higher.
+NOTE: This package is compatible with the MongoDB nodejs driver versions 4 through 6 and supports MongoDB server versions 5 through 7. 
 
 ## Usage
 
@@ -73,8 +73,7 @@ Example:
 ```javascript
 mQueue.registerWorker('doSomething', function (queueItem) {
   // Return a promise to do something here...
-  return database
-    .collection('somecollection')
+  return database.collection('somecollection')
     .updateOne({_id: queueItem.message.id}, {status: queueItem.message.status})
     .then(function (result) {
       return 'Completed';
@@ -122,7 +121,7 @@ mQueue.enqueueAndProcess('doSomething', {id: 123, status: 'done'});
 
 (The MIT License)
 
-Copyright (c) 2014-2023 Wonderlic, Inc. <SoftwareDevelopment@wonderlic.com>
+Copyright (c) 2014-2024 Wonderlic, Inc. <SoftwareDevelopment@wonderlic.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
