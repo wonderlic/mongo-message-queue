@@ -58,11 +58,11 @@ await mQueue.ensureIndexes();
 
 Both behaviors are configurable (set these before registering workers):
 
-- `.createIndex` — set to `false` to disable automatic index creation entirely, e.g. if you manage indexes yourself (defaults to `true`).
+- `.autoCreateIndex` — set to `false` to disable automatic index creation entirely, e.g. if you manage indexes yourself (defaults to `true`).
 - `.indexName` — the name used when creating the index (defaults to `queueReceiveIndex`).
 
 ```javascript
-mQueue.createIndex = false; // don't manage the index for me
+mQueue.autoCreateIndex = false; // don't manage the index for me
 mQueue.indexName = 'myQueueIndex';
 ```
 
