@@ -56,6 +56,16 @@ If you run a producer-only process (one that only enqueues and never registers a
 await mQueue.ensureIndexes();
 ```
 
+Both behaviors are configurable (set these before registering workers):
+
+- `.createIndex` — set to `false` to disable automatic index creation entirely, e.g. if you manage indexes yourself (defaults to `true`).
+- `.indexName` — the name used when creating the index (defaults to `queueReceiveIndex`).
+
+```javascript
+mQueue.createIndex = false; // don't manage the index for me
+mQueue.indexName = 'myQueueIndex';
+```
+
 ### Register one or more Workers
 
 Use the .registerWorker method to provide a processing method for a specific type of message in the queue.
