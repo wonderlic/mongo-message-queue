@@ -6,7 +6,7 @@
 
 ## Package Dependency Notice
 
-NOTE: This package is compatible with the MongoDB nodejs driver versions 4 through 6 and supports MongoDB server versions 5 through 7. 
+NOTE: This package is compatible with the MongoDB nodejs driver versions 4 through 6 and supports MongoDB server versions 5 through 7.
 
 ## Usage
 
@@ -44,6 +44,28 @@ mQueue.databasePromise = function() {
 };
 ```
 
+### Indexes
+
+The queue depends on a compound index over the `_queue` collection that mirrors the fields and order used when polling for work. On large collections this index makes a substantial difference in query performance and database CPU utilization.
+
+You don't need to do anything to get it: the index is created automatically the first time a worker is registered (see below). Creation is idempotent — if a matching index already exists it is left in place and no error is raised.
+
+If you run a producer-only process (one that only enqueues and never registers a worker), you can create the index explicitly:
+
+```javascript
+await mQueue.ensureIndexes();
+```
+
+Both behaviors are configurable (set these before registering workers):
+
+- `.autoCreateIndex` — set to `false` to disable automatic index creation entirely, e.g. if you manage indexes yourself (defaults to `true`).
+- `.indexName` — the name used when creating the index (defaults to `queueReceiveIndex`).
+
+```javascript
+mQueue.autoCreateIndex = false; // don't manage the index for me
+mQueue.indexName = 'myQueueIndex';
+```
+
 ### Register one or more Workers
 
 Use the .registerWorker method to provide a processing method for a specific type of message in the queue.
@@ -73,7 +95,8 @@ Example:
 ```javascript
 mQueue.registerWorker('doSomething', function (queueItem) {
   // Return a promise to do something here...
-  return database.collection('somecollection')
+  return database
+    .collection('somecollection')
     .updateOne({_id: queueItem.message.id}, {status: queueItem.message.status})
     .then(function (result) {
       return 'Completed';
@@ -106,7 +129,11 @@ You can also enqueue a message to be picked up in the future (instead of being i
 Example:
 
 ```javascript
-mQueue.enqueue('doSomething', {id: 123, status: 'done'}, {nextReceivableTime: new Date(Date.now() + 30 * 1000)});
+mQueue.enqueue(
+  'doSomething',
+  {id: 123, status: 'done'},
+  {nextReceivableTime: new Date(Date.now() + 30 * 1000)}
+);
 ```
 
 You can also enqueue a message and try to process it immediately with a locally registered worker. If there is not a worker for the specified type registered locally, it will get picked up and processed later when there is an available worker.
